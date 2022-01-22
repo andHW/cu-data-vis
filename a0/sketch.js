@@ -19,9 +19,11 @@ function drawTimeText() {
     text(timeText, tWidth, tHeight);
 }
 
-function drawTimeMouse() {
-    let pSize = 20;
+function drawfunnySecond() {
+    let pSize = 80;
+    let sSize = pSize * 1.5;
     let pColor = 'rgba(0,0,0, .8)';
+    let sColor = 'rgba(255,255,255, .8)';
     let mx = mouseX;
     let my = mouseY;
     if (mx <= 0 || mx >= windowWidth) {
@@ -34,6 +36,10 @@ function drawTimeMouse() {
     noStroke();
     fill(pColor);
     ellipse(mx, my, pSize);
+    fill(sColor);
+    let arcStart = -HALF_PI + (my + mx) / 100;
+    let sStop = map(second(), 0, 60, arcStart, PI * 2 + arcStart)
+    arc(mx, my, sSize, sSize, arcStart, sStop, PIE);
 }
 
 function drawBg() {
@@ -47,7 +53,7 @@ function drawBg() {
 function draw() {
     drawBg();
     drawTimeText();
-    drawTimeMouse();
+    drawfunnySecond();
 }
 
 /*
