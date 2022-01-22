@@ -1,4 +1,4 @@
-## This is an index page
+Index page
 :)
 
 <!-- ## Welcome to GitHub Pages
