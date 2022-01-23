@@ -105,21 +105,21 @@ function drawBg() {
         let px = xPad + bGap * (si % 5 + 1 + 12);
         let py = bGap * (1 + Math.floor(si / 5));
         drawPie(px, py, bsSize, 60, 60, tbColor, tStart);
-        drawPie(px, py, bsSize, si, 60, tfColor, tStart);
+        drawPie(px, py, bsSize, si + 1, 60, tfColor, tStart);
     }
 
     for (let mi = 0; mi < minute(); mi++) {
         let px = xPad + bGap * (mi % 5 + 1 + 6);
         let py = bGap * (1 + Math.floor(mi / 5));
         drawPie(px, py, bsSize, 60, 60, tbColor, tStart);
-        drawPie(px, py, bsSize, mi, 60, tfColor, tStart);
+        drawPie(px, py, bsSize, mi + 1, 60, tfColor, tStart);
     }
 
     for (let hi = 0; hi < hour(); hi++) {
         let px = xPad + bGap * (hi % 5 + 1);
         let py = bGap * (1 + Math.floor(hi / 5));
         drawPie(px, py, bsSize, 60, 60, tbColor, tStart);
-        drawPie(px, py, bsSize, hi, 60, tfColor, tStart);
+        drawPie(px, py, bsSize, hi + 1, 60, tfColor, tStart);
     }
 }
 
