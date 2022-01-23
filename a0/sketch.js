@@ -8,12 +8,13 @@ function windowResized() {
 
 function drawTimeText() {
     let tSize = 60;
-    let tColor = 'rgba(0, 0, 0, .05)';
+    let tColor = 'rgba(0, 0, 0, .1)';
     let timeText = [hour(), minute(), second()]
         .map(n => String(n).padStart(2, '0'))
         .join(':');
     let tWidth = (windowWidth - textWidth(timeText)) / 2;
-    let tHeight = windowHeight / 2 + tSize / 4;
+    // let tHeight = windowHeight / 2 + tSize / 4;
+    let tHeight = windowHeight - tSize / 2;
     textSize(tSize);
     fill(tColor);
     text(timeText, tWidth, tHeight);
@@ -23,7 +24,7 @@ function getSsColor(second) {
     let itv = 1;
     let cs = ['#AAF', '#AFA', '#AFF', '#FAA', '#FAF', '#FFA'];
     let ci = Math.round(second / itv) % cs.length;
-    return cs[ci];
+    return color(cs[ci]);
 }
 
 function drawPie(mx, my, pSize, v, maxV, color, start) {
@@ -63,19 +64,23 @@ function drawfunnyClock() {
 
     let hStart = -HALF_PI + (my + mx) / 100;
     let hColor = getSsColor(second() + 1);
+    hColor.setAlpha(200);
     drawPie(mx, my, hSize, hour(), 24, hColor, hStart);
 
     let mStart = -HALF_PI + (my) / 100;
     let mColor = getSsColor(second() + 2);
+    mColor.setAlpha(200);
     drawPie(mx, my, mSize, minute(), 60, mColor, mStart);
 
     let sStart = -HALF_PI + (mx) / 100;
     let sColor = getSsColor(second() + 3);
+    sColor.setAlpha(200);
     drawPie(mx, my, sSize, second(), 60, sColor, sStart);
 
     strokeWeight(4);
     stroke(pColor);
-    fill(getSsColor(second() + 4));
+    let midColor = getSsColor(second() + 4);
+    fill(midColor);
     ellipse(mx, my, pSize);
     noStroke();
 }
