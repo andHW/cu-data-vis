@@ -20,55 +20,62 @@ function drawTimeText() {
 }
 
 function getSsColor(second) {
-    let itv = 2;
+    let itv = 1;
     let cs = ['#AAF', '#AFA', '#AFF', '#FAA', '#FAF', '#FFA'];
     let ci = Math.round(second / itv) % cs.length;
     return cs[ci];
 }
 
+function drawPie(mx, my, pSize, v, maxV, color, start) {
+    fill(color);
+    let stop = map(v, 0, maxV, start, PI * 2 + start);
+    arc(mx, my, pSize, pSize, start, stop, PIE);
+}
+
 function drawfunnyClock() {
-    let pSize = 60;
+    let pSize = Math.min(...[windowHeight, windowWidth]) / 8;
     let sSize = pSize * 1.5;
     let mSize = sSize * 1.5;
     let hSize = mSize * 1.5;
     let pColor = 'rgba(0,0,0, .6)';
-    let sColor = 'rgba(255,255,255, .7)';
     let mx = mouseX;
     let my = mouseY;
-    if (mx <= 0 || mx >= windowWidth) {
-        mx = windowWidth / 2;
-    }
-    if (my <= 0 || my >= windowHeight) {
-        my = windowHeight / 2;
+
+    if (mx < hSize / 2) {
+        mx = hSize / 2;
     }
 
-    noStroke();
+    if (my < hSize / 2) {
+        my = hSize / 2;
+    }
 
-    stroke(pColor);
-    strokeWeight(4);
-    fill(getSsColor(second() + 4));
+    if (mx >= windowWidth - hSize / 2) {
+        mx = windowWidth - hSize / 2;
+    }
+    if (my >= windowHeight - hSize / 2) {
+        my = windowHeight - hSize / 2;
+    }
+
+    let skColor = 'rgba(0,0,0, .6)';
+    let skWeight = 4;
+    stroke(skColor);
+    strokeWeight(skWeight);
+
     let hStart = -HALF_PI + (my + mx) / 100;
-    let hStop = map(hour(), 0, 24, hStart, PI * 2 + hStart);
-    arc(mx, my, hSize, hSize, hStart, hStop, PIE);
+    let hColor = getSsColor(second() + 1);
+    drawPie(mx, my, hSize, hour(), 24, hColor, hStart);
 
-    stroke(pColor);
-    strokeWeight(4);
-    fill(getSsColor(second() + 3));
     let mStart = -HALF_PI + (my) / 100;
-    let mStop = map(minute(), 0, 60, mStart, PI * 2 + mStart);
-    arc(mx, my, mSize, mSize, mStart, mStop, PIE);
+    let mColor = getSsColor(second() + 2);
+    drawPie(mx, my, mSize, minute(), 60, mColor, mStart);
 
-    strokeWeight(4);
-    stroke(pColor);
-    fill(getSsColor(second() + 2));
     let sStart = -HALF_PI + (mx) / 100;
-    let sStop = map(second(), 0, 60, sStart, PI * 2 + sStart);
-    arc(mx, my, sSize, sSize, sStart, sStop, PIE);
-    noStroke();
+    let sColor = getSsColor(second() + 3);
+    drawPie(mx, my, sSize, second(), 60, sColor, sStart);
 
     strokeWeight(4);
     stroke(pColor);
-    fill(getSsColor(second() + 1));
+    fill(getSsColor(second() + 4));
     ellipse(mx, my, pSize);
     noStroke();
 }
@@ -76,12 +83,45 @@ function drawfunnyClock() {
 function drawBg() {
     let cc = getSsColor(second());
     background(cc);
+
+    let tbColor = 'rgba(0,0,0, .2)';
+    let tfColor = 'rgba(255,255,255, .6)';
+    let tStart = -HALF_PI;
+
+    let bsSize = Math.min(...[
+        windowHeight / 13 / 1.1,
+        windowWidth / 3 / 6 / 1.1
+    ]);
+    let bGap = bsSize * 1.1;
+
+    let xPad = (windowWidth - bGap * 18) / 2;
+
+    for (let si = 0; si < second(); si++) {
+        let px = xPad + bGap * (si % 5 + 1 + 12);
+        let py = bGap * (1 + Math.floor(si / 5));
+        drawPie(px, py, bsSize, 60, 60, tbColor, tStart);
+        drawPie(px, py, bsSize, si, 60, tfColor, tStart);
+    }
+
+    for (let mi = 0; mi < minute(); mi++) {
+        let px = xPad + bGap * (mi % 5 + 1 + 6);
+        let py = bGap * (1 + Math.floor(mi / 5));
+        drawPie(px, py, bsSize, 60, 60, tbColor, tStart);
+        drawPie(px, py, bsSize, mi, 60, tfColor, tStart);
+    }
+
+    for (let hi = 0; hi < hour(); hi++) {
+        let px = xPad + bGap * (hi % 5 + 1);
+        let py = bGap * (1 + Math.floor(hi / 5));
+        drawPie(px, py, bsSize, 60, 60, tbColor, tStart);
+        drawPie(px, py, bsSize, hi, 60, tfColor, tStart);
+    }
 }
 
 function draw() {
     drawBg();
-    drawTimeText();
     drawfunnyClock();
+    drawTimeText();
 }
 
 /*
