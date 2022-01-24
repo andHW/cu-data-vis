@@ -1,7 +1,7 @@
 This repository stores my coursework for [COMS W4995 Introduction to Data Visualization, Spring 2022](https://columbiaviz.github.io/2022s_w4995/index.html) at [Columbia University](http://columbia.edu/).
 
 # Assignments
-## [A0: Abstract Clock](http://127.0.0.1:4000/a0/)
+## [A0: Abstract Clock](./a0)
 A colorful and responsive abstract clock that moves along with your mouse cursor.
 - Colors are "rippled" from the center disc to the background
 - Click anywhere in the frame to display the exact time

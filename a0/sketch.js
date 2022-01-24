@@ -1,3 +1,12 @@
+/*
+References for p5js:
+- https://p5js.org/reference/
+
+References for the dotted lines:
+- https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/setLineDash
+- https://editor.p5js.org/squishynotions/sketches/Ax195WTdz
+*/
+
 function setup() {
     createCanvas(windowWidth, windowHeight);
 }
@@ -8,7 +17,7 @@ function windowResized() {
 
 function drawTimeText() {
     let tSize = windowWidth / 5;
-    let tColor = 'rgba(0, 0, 0, .05)';
+    let tColor = 'rgba(0, 0, 0, .1)';
     let timeText = [hour(), minute(), second()]
         .map(n => String(n).padStart(2, '0'))
         .join(':');
@@ -44,6 +53,7 @@ function drawfunnyClock() {
 
     let skColor = 'rgba(0,0,0, .6)';
     let skWeight = 4;
+    let emptyColor = 'rgba(255,255,255, 0)';
 
     let maxDiameter = hSize + skWeight;
     if (mx < maxDiameter / 2) {
@@ -65,6 +75,12 @@ function drawfunnyClock() {
     stroke(skColor);
     strokeWeight(skWeight);
 
+    if (hour() < 1) {
+        drawingContext.setLineDash([12, 12]);
+        drawPie(mx, my, hSize, 1, 1, emptyColor, 0);
+        drawingContext.setLineDash([]);
+    }
+
     let hStart = -HALF_PI + (my + mx) / 100;
     let hColor = getSsColor(second() + 1);
     hColor.setAlpha(200);
@@ -75,10 +91,22 @@ function drawfunnyClock() {
     mColor.setAlpha(200);
     drawPie(mx, my, mSize, minute(), 60, mColor, mStart);
 
+    if (minute() < 1) {
+        drawingContext.setLineDash([12, 12]);
+        drawPie(mx, my, mSize, 1, 1, emptyColor, 0);
+        drawingContext.setLineDash([]);
+    }
+
     let sStart = -HALF_PI + (mx) / 100;
     let sColor = getSsColor(second() + 3);
     sColor.setAlpha(200);
     drawPie(mx, my, sSize, second(), 60, sColor, sStart);
+
+    if (second() < 1) {
+        drawingContext.setLineDash([12, 12]);
+        drawPie(mx, my, sSize, 1, 1, emptyColor, 0);
+        drawingContext.setLineDash([]);
+    }
 
     strokeWeight(4);
     stroke(pColor);
