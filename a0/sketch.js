@@ -7,14 +7,14 @@ function windowResized() {
 }
 
 function drawTimeText() {
-    let tSize = 60;
-    let tColor = 'rgba(0, 0, 0, .1)';
+    let tSize = windowWidth / 5;
+    let tColor = 'rgba(0, 0, 0, .05)';
     let timeText = [hour(), minute(), second()]
         .map(n => String(n).padStart(2, '0'))
         .join(':');
     let tWidth = (windowWidth - textWidth(timeText)) / 2;
-    // let tHeight = windowHeight / 2 + tSize / 4;
-    let tHeight = windowHeight - tSize / 2;
+    let tHeight = windowHeight / 2 + tSize / 4;
+    // let tHeight = windowHeight - tSize / 2;
     textSize(tSize);
     fill(tColor);
     text(timeText, tWidth, tHeight);
@@ -42,23 +42,26 @@ function drawfunnyClock() {
     let mx = mouseX;
     let my = mouseY;
 
-    if (mx < hSize / 2) {
-        mx = hSize / 2;
-    }
-
-    if (my < hSize / 2) {
-        my = hSize / 2;
-    }
-
-    if (mx >= windowWidth - hSize / 2) {
-        mx = windowWidth - hSize / 2;
-    }
-    if (my >= windowHeight - hSize / 2) {
-        my = windowHeight - hSize / 2;
-    }
-
     let skColor = 'rgba(0,0,0, .6)';
     let skWeight = 4;
+
+    let maxDiameter = hSize + skWeight;
+    if (mx < maxDiameter / 2) {
+        mx = maxDiameter / 2;
+    }
+
+    if (my < maxDiameter / 2) {
+        my = maxDiameter / 2;
+    }
+
+    if (mx >= windowWidth - maxDiameter / 2) {
+        mx = windowWidth - maxDiameter / 2;
+    }
+    if (my >= windowHeight - maxDiameter / 2) {
+        my = windowHeight - maxDiameter / 2;
+    }
+
+
     stroke(skColor);
     strokeWeight(skWeight);
 
@@ -123,10 +126,16 @@ function drawBg() {
     }
 }
 
+let showTimeTxt = false;
+
+function mouseClicked() {
+    showTimeTxt = !showTimeTxt;
+}
+
 function draw() {
     drawBg();
     drawfunnyClock();
-    drawTimeText();
+    if (showTimeTxt) drawTimeText();
 }
 
 /*
