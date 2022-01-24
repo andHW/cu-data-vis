@@ -1,5 +1,36 @@
-Index page
-:)
+This repository stores my courseworks for [COMS W4995 Introduction to Data Visualization, Spring 2022](https://columbiaviz.github.io/2022s_w4995/index.html) at [Columbia University](http://columbia.edu/).
+
+# Assignments
+Click the headers below to view the assignment.
+## [A0: Abstract Clock](http://127.0.0.1:4000/a0/)
+A colorful and responsive abstract clock that moves along with your mouse cursor.
+- Colors are "rippled" from the center disc to the background
+- Click anywhere in the frame to display the exact time
+
+{% raw %}
+<iframe frameborder="no" width=400 height=300 src="./a0"></iframe>
+{% endraw %}
+## A1
+To be updated.
+## A2
+To be updated.
+## A3
+To be updated.
+## A4
+To be updated.
+## A5
+To be updated.
+
+# Labs
+## L1
+To be updated.
+## L2
+To be updated.
+## L3
+To be updated.
+
+# Extra Credit Works
+To be updated.
 
 <!-- ## Welcome to GitHub Pages
 
