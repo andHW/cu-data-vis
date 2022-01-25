@@ -7,7 +7,7 @@ A colorful and responsive abstract clock that moves along with your mouse cursor
 - Click anywhere in the frame to display the exact time
 
 {% raw %}
-<iframe frameborder="no" width=400 height=300 src="./a0"></iframe>
+<iframe frameborder="no" style="width:50vw; height:40vw; max-width:400px; max-height:300px;" src="./a0"></iframe>
 {% endraw %}
 ## A1
 To be updated.
